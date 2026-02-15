@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function GamePage() {
+  function GamePage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -397,5 +397,14 @@ if (!playerRef.current) {
       {gameState === "gameover" && <Overlay title="Game Over 🚀" />}
       {gameState === "win" && <Overlay title="YOU WON 🏆" />}
     </div>
+  );
+}
+import { Suspense } from "react";
+
+export default function GameWrapper() {
+  return (
+    <Suspense fallback={<div className="overlay"><h1>Loading...</h1></div>}>
+      <GamePage />
+    </Suspense>
   );
 }
